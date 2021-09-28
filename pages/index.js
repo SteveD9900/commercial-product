@@ -1,22 +1,15 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import MainPanel from "../components/MainPanel/MainPanel";
 
 export default function Home({ data }) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Products</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-       <div>
-        <ul>
-          {data.map((post) => (
-            <li key={post.index}>{post.productName}</li>
-          ))}
-        </ul>
-       </div>
+      <main>
+        <MainPanel products={data}/>
       </main>
     </div>
   )
