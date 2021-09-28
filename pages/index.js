@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import MainPanel from "../components/MainPanel/MainPanel";
+import ToolBar from "../components/ToolBar/ToolBar";
 
 export default function Home({ data }) {
+
   return (
     <div>
       <Head>
@@ -9,7 +11,8 @@ export default function Home({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <MainPanel products={data}/>
+        <ToolBar />
+        <MainPanel products={data} />
       </main>
     </div>
   )

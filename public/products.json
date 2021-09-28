@@ -3,7 +3,7 @@
         "index": 0,
         "isSale": false,
         "price": "$49.99",
-        "productImage": "./Product_1.jpeg",
+        "productImage": "Product_1.jpeg",
         "productName": "Pure Blonde Crate",
         "type": "Beer"
     },

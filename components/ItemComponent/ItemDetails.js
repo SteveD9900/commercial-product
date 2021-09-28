@@ -11,11 +11,13 @@ export default function ItemDetails(props) {
             <div className={styles.saleStatus}>Sale</div>
         ) : null}
       <div className={styles.content}>
-        <img
-          className={styles.displayImage}
-          alt="item"
-          src={props.details.productImage}
-        />
+        <div className={styles.imgContainer}>
+            <img
+                className={styles.displayImage}
+                alt="item"
+                src={props.details.productImage}
+            />
+        </div>
         <span className={styles.displayName}>{props.details.productName}</span> &nbsp;
         <span className={styles.displayPrice}>{props.details.price}</span>
       </div>
