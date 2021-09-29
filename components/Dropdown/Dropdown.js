@@ -3,13 +3,7 @@ import styles from "./Dropdown.module.scss";
 
 export default function Dropdown(props) {
     const [selectedType, setSelectedType] = useState("All");
-    const options = [
-      "All",
-      "Beer",
-      "Wine",
-      "Spirits",
-      "Cider"
-    ];
+    const [options] = useState(props.options);
 
     const onChangeHandler = (e) => {
       setSelectedType(e.target.value);

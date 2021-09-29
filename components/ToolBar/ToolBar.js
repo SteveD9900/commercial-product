@@ -6,7 +6,7 @@ import SearchInput from "../SearchInput/SearchInput";
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { FILTER_PRODUCTS, SEARCH_PRODUCTS } from '../../store/actions/actionTypes';
 
-export default function ToolBar() {
+export default function ToolBar(props) {
   const dispatch = useAppDispatch();
   function updateType(value) {
     dispatch({type: FILTER_PRODUCTS, payload: value});
@@ -20,7 +20,7 @@ export default function ToolBar() {
     <div className={styles.ToolBar}>
       <div className={styles.dropdownContainer}>
         <SearchInput filterBySearch={searchName}/>&nbsp;
-        <Dropdown filterItems={updateType} />
+        <Dropdown filterItems={updateType} options={props.typeList}/>
       </div>
     </div>
   );
