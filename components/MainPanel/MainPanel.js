@@ -11,6 +11,9 @@ export default function MainPanel(props) {
         {props.products.map((product) => (
           <ItemDetails key={product.index} details={product}/>
         ))}
+        {props.products.length === 0 ? (
+            <span>No Result</span>
+        ) : null}
         </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, FILTER_PRODUCTS } from "../actions/actionTypes";
+import { GET_PRODUCTS, FILTER_PRODUCTS, SEARCH_PRODUCTS } from "../actions/actionTypes";
 
 const initialState = {
   products: [
@@ -35,6 +35,14 @@ const productsReducer = (state = initialState, action) => {
         (product) => product.type === action.payload
       );
       return { ...state, filteredProducts: filteredProducts };
+
+    case SEARCH_PRODUCTS:
+      if (action.payload === "")
+        return { ...state, filteredProducts: state.products };
+      const searchedProducts = state.filteredProducts.filter(
+        (product) => product.productName.includes(action.payload)
+      );
+      return { ...state, filteredProducts: searchedProducts };
 
     default:
       return state;
