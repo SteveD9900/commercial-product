@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import styles from "./ItemDetails.module.scss";
+import styles from "./Card.module.scss";
 
-export default function ItemDetails(props) {
+export default function Card(props) {
   const [isSale] = useState(props.details.isSale);
 
   return (
-    <div className={styles.ItemDetails}>
+    <div className={styles.Card}>
         {isSale ? (
             <div className={styles.saleStatus}>Sale</div>
         ) : null}

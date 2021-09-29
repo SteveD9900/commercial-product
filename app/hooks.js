@@ -34,6 +34,6 @@ export const useInterval = (callback, delay) => {
   }, [delay]);
 };
 
-export const useAppDispatch = () => useDispatch();
+export const useAppDispatch = useDispatch;
 
 export const useAppSelector = useSelector;

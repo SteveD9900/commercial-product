@@ -1,6 +1,9 @@
 import { GET_PRODUCTS, FILTER_PRODUCTS, SEARCH_PRODUCTS } from "../actions/actionTypes";
 
+const DEFAULT_TYPE = "All";
+
 const initialState = {
+  searchType: DEFAULT_TYPE,
   products: [
     {
       index: 0,
@@ -26,24 +29,34 @@ const initialState = {
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
-      return { products: action.payload, filteredProducts: action.payload };
+      return { searchType: DEFAULT_TYPE, products: action.payload, filteredProducts: action.payload };
 
     case FILTER_PRODUCTS:
-      if (action.payload === "All")
-        return { ...state, filteredProducts: state.products };
+      if (action.payload === DEFAULT_TYPE)
+        return { ...state, searchType: DEFAULT_TYPE, filteredProducts: state.products };
       const filteredProducts = state.products.filter(
         (product) => product.type === action.payload
       );
-      return { ...state, filteredProducts: filteredProducts };
+      return { ...state, searchType: action.payload, filteredProducts: filteredProducts };
 
     case SEARCH_PRODUCTS:
-      if (action.payload === "")
-        return { ...state, filteredProducts: state.products };
-      const searchedProducts = state.filteredProducts.filter(
-        (product) => product.productName.includes(action.payload)
-      );
-      return { ...state, filteredProducts: searchedProducts };
-
+      if (action.payload === "") {
+        const searchedProducts = state.products.filter(function(product) {
+          if (state.searchType === DEFAULT_TYPE) {
+            return true;
+          }
+          return product.type === state.searchType;
+        });
+        return { ...state, filteredProducts: searchedProducts };
+      } else {
+        const searchedProducts = state.products.filter(function(product) {
+          if (state.searchType === DEFAULT_TYPE) {
+            return product.productName.toLowerCase().includes(action.payload.toLowerCase());
+          }
+          return product.type === state.searchType && product.productName.toLowerCase().includes(action.payload.toLowerCase());
+        });
+        return { ...state, filteredProducts: searchedProducts };
+      }
     default:
       return state;
   }
