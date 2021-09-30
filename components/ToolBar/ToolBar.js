@@ -9,11 +9,11 @@ import { FILTER_PRODUCTS, SEARCH_PRODUCTS } from '../../store/actions/actionType
 export default function ToolBar(props) {
   const dispatch = useAppDispatch();
   function updateType(value) {
-    dispatch({type: FILTER_PRODUCTS, payload: value});
+    dispatch({ type: FILTER_PRODUCTS, payload: value });
   }
 
   function searchName(keywords) {
-    dispatch({type: SEARCH_PRODUCTS, payload: keywords});
+    dispatch({ type: SEARCH_PRODUCTS, payload: keywords });
   }
 
   return (

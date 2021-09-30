@@ -10,7 +10,7 @@ import productHelper from "../utils/helper.js";
 export default function Home({ data }) {
   const dispatch = useAppDispatch();
   const { filteredProducts } = useAppSelector((state) => state.products);
-  const action = { searchType: "All", type: GET_PRODUCTS, payload: data };
+  const action = { type: GET_PRODUCTS, payload: data };
   const [ typeOptions ] = useState(productHelper.getAvailableTypes(data));
 
   useEffect(() => {
