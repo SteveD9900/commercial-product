@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, FILTER_PRODUCTS, SEARCH_PRODUCTS } from "../actions/actionTypes";
+import { GET_PRODUCTS, FILTER_PRODUCTS } from "../actions/actionTypes";
 
 const DEFAULT_TYPE = "All";
 const DEFAULT_KEYWRODS = "";
@@ -34,49 +34,19 @@ const productsReducer = (state = initialState, action) => {
       return { searchType: DEFAULT_TYPE, searchWords: DEFAULT_KEYWRODS, products: action.payload, filteredProducts: action.payload };
 
     case FILTER_PRODUCTS:
-      if (action.payload === DEFAULT_TYPE) {
-        if (state.searchWords == DEFAULT_KEYWRODS) {
-          return { ...state, searchType: DEFAULT_TYPE, filteredProducts: state.products };
-        }
-        const filteredProducts = state.products.filter(
-          (product) => product.productName.toLowerCase().includes(state.searchWords.toLowerCase())
+      const { searchType, searchWords } = action.payload;
+      let filteredProducts = state.products;
+      if (searchType !== DEFAULT_TYPE) {
+        filteredProducts = state.products.filter(
+          (product) => product.type === searchType
         );
-        return { ...state, searchType: DEFAULT_TYPE, filteredProducts: filteredProducts };
-      } else {
-        if (state.searchWords == DEFAULT_KEYWRODS) {
-          const filteredProducts = state.products.filter(
-            (product) => product.type === action.payload
-          );
-          return { ...state, searchType: action.payload, filteredProducts: filteredProducts };
-        } else {
-          const filteredProducts = state.products.filter(
-            (product) => product.type === action.payload && product.productName.toLowerCase().includes(state.searchWords.toLowerCase())
-          );
-          return { ...state, searchType: action.payload, filteredProducts: filteredProducts };
-        }
       }
-    case SEARCH_PRODUCTS:
-      if (action.payload === DEFAULT_KEYWRODS) {
-        if (state.searchType === DEFAULT_TYPE) {
-          return { ...state, searchWords: DEFAULT_KEYWRODS, filteredProducts: state.products };
-        }
-        const searchedProducts = state.products.filter(
-          (product) => product.type === state.searchType
+      if (searchWords !== DEFAULT_KEYWRODS) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.productName.toLowerCase().includes(searchWords.toLowerCase())
         );
-        return { ...state, searchWords: DEFAULT_KEYWRODS, filteredProducts: searchedProducts };
-      } else {
-        if (state.searchType === DEFAULT_TYPE) {
-          const searchedProducts = state.products.filter(function(product) {
-            return product.productName.toLowerCase().includes(action.payload.toLowerCase());
-          });
-          return { ...state, searchWords: action.payload, filteredProducts: searchedProducts };
-        } else {
-          const searchedProducts = state.products.filter(function(product) {
-            return product.type === state.searchType && product.productName.toLowerCase().includes(action.payload.toLowerCase());
-          });
-          return { ...state, searchWords: action.payload, filteredProducts: searchedProducts };
-        }
       }
+      return { ...state, searchType, searchWords, filteredProducts };
     default:
       return state;
   } 
